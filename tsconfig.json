@@ -3,7 +3,9 @@
     "module": "commonjs",
     "target": "ES2020",
     "outDir": "out",
-    "lib": ["ES2020"],
+    "lib": [
+      "ES2020"
+    ],
     "sourceMap": true,
     "rootDir": "src",
     "strict": true
@@ -13,5 +15,7 @@
     // "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
     // "noUnusedParameters": true,  /* Report errors on unused parameters. */
   },
-  "exclude": ["webview"]
+  "exclude": [
+    "./webview/**/*"
+  ]
 }

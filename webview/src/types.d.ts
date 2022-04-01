@@ -3,7 +3,8 @@ declare module 'solid-js/types/jsx' {
   namespace JSX {
       interface IntrinsicElements {
         ['vscode-text-field']: InputHTMLAttributes<VSCodeWebviewUIToolkit.TextField>;
-        ['vscode-button']: ButtonHTMLAttributes<VSCodeWebviewUIToolkit.Button>;
+        ['vscode-button']: HTMLAttributes<VSCodeWebviewUIToolkit.Button> & {appearance: string};
+        ['vscode-divider']: HTMLAttributes<VSCodeWebviewUIToolkit.Divider>;
       }
   }
 }

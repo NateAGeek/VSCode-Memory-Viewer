@@ -36,6 +36,7 @@ export class MemoryViewerViewProvider implements WebviewViewProvider {
     const mainUri = getUri(webview, extensionUri, ["webview", "dist", "assets", "index.js"]);
     const solidVendorUri = getUri(webview, extensionUri, ["webview", "dist", "assets", "vendor.js"]);
     const stylesUri = getUri(webview, extensionUri, ["webview", "dist", "assets", "index.css"]);
+    const codiconsUri = getUri(webview, extensionUri, ['node_modules', '@vscode/codicons', 'dist', 'codicon.css']);
 
     return `
       <!DOCTYPE html>
@@ -47,6 +48,7 @@ export class MemoryViewerViewProvider implements WebviewViewProvider {
           <script type="module" crossorigin src="${mainUri}"></script>
           <link rel="modulepreload" href="${solidVendorUri}">
           <link rel="stylesheet" href="${stylesUri}">
+          <link rel="stylesheet" href="${codiconsUri}">
           <title>Memory Viewer</title>
         </head>
         <body>
