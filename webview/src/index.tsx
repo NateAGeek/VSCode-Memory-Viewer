@@ -2,8 +2,8 @@
 import { render } from 'solid-js/web';
 
 import './index.css';
-// import '../../node_modules/@vscode/webview-ui-toolkit/dist/toolkit';
-// import '../../node_modules/@vscode/codicons/dist/codicon.css';
+import '../../node_modules/@vscode/webview-ui-toolkit/dist/toolkit';
+import '../../node_modules/@vscode/codicons/dist/codicon.css';
 import MemoryViewer from './MemoryViewer';
 
 // declare const acquireVsCodeApi: Function;

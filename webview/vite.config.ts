@@ -1,8 +1,13 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 
-export default defineConfig({
+export default defineConfig((_) => ({
   plugins: [solidPlugin()],
+  server: {
+    fs: {
+      allow: ['../node_modules', './'],
+    }
+  },
   build: {
     target: 'esnext',
     polyfillDynamicImport: false,
@@ -14,4 +19,4 @@ export default defineConfig({
       }
     }
   },
-});
+}));
