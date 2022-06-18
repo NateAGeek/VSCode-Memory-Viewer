@@ -3,6 +3,8 @@
   "displayName": "Memory Viewer",
   "description": "Creates a memory viewer for supported debug instances.",
   "version": "0.0.1",
+  "publisher": "NateAGeek",
+  "repository": "https://github.com/NateAGeek/VSCode-Better-Memory-Viewer",
   "engines": {
     "vscode": "^1.65.0"
   },
