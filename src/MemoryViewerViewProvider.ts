@@ -19,6 +19,9 @@ export class MemoryViewerViewProvider implements WebviewViewProvider {
 
     // Set the HTML content that will fill the webview view
     webviewView.webview.html = this._getWebviewContent(webviewView.webview, this._extensionUri);
+    vscode.debug.onDidChangeActiveDebugSession((event) => {
+      console.log("DEBUGGER CHANGED", event);
+    });
 
     // Sets up an event listener to listen for messages passed from the webview view context
     // and executes code based on the message that is recieved
@@ -60,24 +63,44 @@ export class MemoryViewerViewProvider implements WebviewViewProvider {
   }
 
   private _setWebviewMessageListener(webviewView: WebviewView) {
-    webviewView.webview.onDidReceiveMessage((message) => {
+    webviewView.webview.onDidReceiveMessage((message: MemoryViewerReadMemoryRequest) => {
       console.log("Received message from webview: ", message);
       switch (message.command) {
         case "readMemory":
           const activeDebugSession = vscode.debug.activeDebugSession;
           if (activeDebugSession !== undefined) {
+            try {
             activeDebugSession.customRequest("readMemory", {
               memoryReference: message.address,
-              count: 100,
-            }).then((response) => {
+              // offset: message.offset,
+              count: message.bufferSize,
+            }).then((response: MemoryViewerReadMemoryResponse) => {
               console.log("Got response", response);
+              response.direction = message.offset >= 0 ? "POSITIVE" : "NEGATIVE";
               webviewView.webview.postMessage(response);
             });
+          } catch (e) {
+            console.log("THERE WAS AN ERROR",e);
+          }
           } else {
-            console.log("Not is a valid session...");
+            console.log("Not is a valid debug session is running...");
           }
           break;
       }
     });
   }
+}
+
+interface MemoryViewerReadMemoryRequest {
+  command: "readMemory",
+  address: string,
+  offset: number,
+  bufferSize: number
+}
+
+interface MemoryViewerReadMemoryResponse {
+  address: string;
+  unreadableBytes?: number;
+  data?: string;
+  direction: "POSITIVE" | "NEGATIVE"
 }

@@ -96,7 +96,7 @@ export default function MemoryViewerBufferTable(props: MemoryViewerBufferTablePr
             'padding-left': '32px',
             'width': '100%',
             'background-color': 'var(--vscode-sideBar-background)',
-          }}>Decoded Text</th>
+          }}>Decoded ASCII Text</th>
         </tr>
         <tr>
           <td colspan={100}>

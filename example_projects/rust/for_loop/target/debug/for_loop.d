@@ -1,0 +1,1 @@
+/Users/nateageek/Development/VSCodeExtentions/VSCode-Better-Memory-Viewer/example_projects/rust/for_loop/target/debug/for_loop: /Users/nateageek/Development/VSCodeExtentions/VSCode-Better-Memory-Viewer/example_projects/rust/for_loop/src/main.rs
