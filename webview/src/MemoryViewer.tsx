@@ -15,6 +15,7 @@ export default function MemoryViewer() {
   const [activePositiveOffset, setActivePositiveOffset] = createSignal(0);
   const onMessageCallback = (message: any) => {
     console.log("Message", message);
+    setBytes([]);
     var binaryString = window.atob(message.data.data);
     var len = binaryString.length;
     var collectedBytes = new Array(len);
@@ -59,7 +60,6 @@ export default function MemoryViewer() {
     <div class={styles.MemoryViewer}>
       <MemoryViewerHeader 
       onRefresh={() => {
-        setBytes([]);
         vscode.postMessage({
           command: "readMemory",
           address: address(),

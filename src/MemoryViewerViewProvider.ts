@@ -2,6 +2,7 @@ import { CancellationToken, Uri, Webview, WebviewView, WebviewViewProvider, Webv
 import { getUri } from "./utilites/getUri";
 import * as vscode from 'vscode';
 
+let global_message: MemoryViewerReadMemoryRequest;
 export class MemoryViewerViewProvider implements WebviewViewProvider {
   public static readonly viewType = "memoryViewer.webview";
 
@@ -69,6 +70,7 @@ export class MemoryViewerViewProvider implements WebviewViewProvider {
         case "readMemory":
           const activeDebugSession = vscode.debug.activeDebugSession;
           if (activeDebugSession !== undefined) {
+            global_message = message;
             try {
             activeDebugSession.customRequest("readMemory", {
               memoryReference: message.address,
@@ -86,6 +88,27 @@ export class MemoryViewerViewProvider implements WebviewViewProvider {
             console.log("Not is a valid debug session is running...");
           }
           break;
+      }
+    });
+    vscode.window.onDidChangeTextEditorSelection(e => {
+      const activeDebugSession = vscode.debug.activeDebugSession;
+      if (activeDebugSession !== undefined) {
+        try {
+        activeDebugSession.customRequest("readMemory", {
+          memoryReference: global_message.address,
+          // offset: global_message.offset,
+          count: global_message.bufferSize,
+        }).then((response: MemoryViewerReadMemoryResponse) => {
+          console.log("Got response onDidChangeTextEditorSelection ", response);
+          response.direction = global_message.offset >= 0 ? "POSITIVE" : "NEGATIVE";
+          webviewView.webview.postMessage(response);
+
+        });
+      } catch (e) {
+        console.error("THERE WAS AN ERROR",e);
+      }
+      } else {
+        // console.warn("Not is a valid debug session is running...");
       }
     });
   }
