@@ -12,16 +12,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:memoryViewer.helloWorld",
     "onView:memoryViewer.webview"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "memoryViewer.helloWorld",
-        "title": "Hello World"
-      }
     ],
     "views": {
       "debug": [
